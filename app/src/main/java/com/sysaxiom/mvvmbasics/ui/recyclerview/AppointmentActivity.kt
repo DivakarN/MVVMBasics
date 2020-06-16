@@ -1,4 +1,4 @@
-package com.sysaxiom.mvvmbasics.ui.appointment
+package com.sysaxiom.mvvmbasics.ui.recyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,13 +9,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sysaxiom.mvvmbasics.R
+import com.sysaxiom.mvvmbasics.data.listeners.LoaderListener
 import com.sysaxiom.mvvmbasics.utils.*
 import kotlinx.android.synthetic.main.activity_appointment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-class AppointmentActivity : AppCompatActivity(), AppointmentListener, KodeinAware {
+class AppointmentActivity : AppCompatActivity(),
+    LoaderListener, KodeinAware {
 
     override val kodein by kodein()
 
@@ -39,7 +41,7 @@ class AppointmentActivity : AppCompatActivity(), AppointmentListener, KodeinAwar
         textView.hide()
 
         viewModel.getAppointment()
-        viewModel.appointmentListener = this
+        viewModel.loaderListener = this
 
         val adapter= AppointmentAdapter(listOf())
         recylerview_appointment.layoutManager = LinearLayoutManager(this)
@@ -60,9 +62,9 @@ class AppointmentActivity : AppCompatActivity(), AppointmentListener, KodeinAwar
 
         viewModel.getLocation().observe(this, Observer {
             if(it.isPermissionAvailable.equals(true)){
-                println("Location Data"+it.toString())
+                println("Location Data$it")
             } else if(it.isPermissionAvailable.equals(false)){
-                println("Location Data"+it.toString())
+                println("Location Data$it")
             }
         })
 

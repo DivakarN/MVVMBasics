@@ -32,12 +32,7 @@ class LocationHandler(private val context: Context) : LiveData<LocationData>(){
         override fun onLocationResult(locationResult: LocationResult?) {
             try {
                 if (locationResult != null) {
-                    postValue(
-                        LocationData(
-                            true,
-                            locationResult.getLastLocation()
-                        )
-                    )
+                    postValue(LocationData(true, locationResult.lastLocation))
                 }
             } catch (e: Exception) {
                 Log.d("LocationHandler", e.toString())

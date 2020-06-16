@@ -1,4 +1,4 @@
-package com.sysaxiom.mvvmbasics.ui.appointment
+package com.sysaxiom.mvvmbasics.ui.recyclerview
 
 import android.view.LayoutInflater
 import android.view.View

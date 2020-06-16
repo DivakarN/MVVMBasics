@@ -1,17 +1,17 @@
-package com.sysaxiom.mvvmbasics.ui.appointment
+package com.sysaxiom.mvvmbasics.ui.room
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.sysaxiom.mvvmbasics.data.repositorys.AppointmentRepository
+import com.sysaxiom.mvvmbasics.data.repositorys.AuthRepository
 
 @Suppress("UNCHECKED_CAST")
-class AppointmentViewModelFactory(
-    private val repository: AppointmentRepository,
-    private val context: Context
+class LoginViewModelFactory(
+    private val repository: AuthRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return AppointmentViewModel(repository,context) as T
+        return LoginViewModel(repository) as T
     }
 }

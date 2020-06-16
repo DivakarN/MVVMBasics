@@ -4,25 +4,35 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name="com.sysaxiom.mvvmbasics.utils.MVVMBasicsApplication"
+        android:name=".application.MVVMBasicsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.sysaxiom.mvvmbasics.ui.appointment.AppointmentActivity">
+        <activity android:name=".ui.room.LoginActivity"></activity>
+        <activity android:name=".ui.navigationview.TabViewActivity" />
+        <activity android:name=".ui.MainActivity">
+        </activity>
+        <activity android:name=".ui.DateTimeActivity">
+        </activity>
+        <activity android:name=".ui.navigationview.BottomNavigationViewActivity" />
+        <activity android:name=".ui.basicui.PrivacyActivity" />
+        <activity android:name=".ui.recyclerview.AppointmentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.navigationview.NavigationViewActivity" />
+
         <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 

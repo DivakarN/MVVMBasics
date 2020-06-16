@@ -1,8 +1,13 @@
 package com.sysaxiom.mvvmbasics.data.network
 
+import com.sysaxiom.focozon.model.setting.TermsResponse
+import com.sysaxiom.mvvmbasics.data.models.PrivacyResponse
 import com.sysaxiom.mvvmbasics.data.models.AppointmentResponse
+import com.sysaxiom.mvvmbasics.data.db.entities.AuthResponse
+import com.sysaxiom.mvvmbasics.data.models.RelationResponse
 import com.sysaxiom.mvvmbasics.utils.UrlsFields
 import okhttp3.OkHttpClient
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,6 +21,24 @@ interface NetworkApis {
         @Query(UrlsFields.ID) id: String
     ) : Response<AppointmentResponse>
 
+    @GET(UrlsFields.GET_PRIVACY)
+    suspend fun getPrivacy() : Response<PrivacyResponse>
+
+    @GET(UrlsFields.GET_TERMS)
+    suspend fun getTerms() : Response<TermsResponse>
+
+    @POST(UrlsFields.GET_RELATION)
+    @FormUrlEncoded
+    suspend fun getRelation(
+        @Field(UrlsFields.ID) id: String
+    ) : Response<RelationResponse>
+
+    @POST(UrlsFields.LOGIN)
+    @FormUrlEncoded
+    suspend fun login(
+        @Field(UrlsFields.MOBILE) mobile: String,
+        @Field(UrlsFields.PASSWORD) password : String
+    ) : Response<AuthResponse>
 
     companion object{
 
