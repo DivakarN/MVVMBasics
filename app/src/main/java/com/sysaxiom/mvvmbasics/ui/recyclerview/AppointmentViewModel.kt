@@ -1,10 +1,11 @@
-package com.sysaxiom.mvvmbasics.ui.appointment
+package com.sysaxiom.mvvmbasics.ui.recyclerview
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sysaxiom.mvvmbasics.data.models.AppointmentResponse
+import com.sysaxiom.mvvmbasics.data.listeners.LoaderListener
 import com.sysaxiom.mvvmbasics.data.repositorys.AppointmentRepository
 import com.sysaxiom.mvvmbasics.handlers.location.LocationHandler
 import com.sysaxiom.mvvmbasics.handlers.mqtt.MqttHandler
@@ -18,7 +19,7 @@ class AppointmentViewModel(
     private val context: Context
 ) : ViewModel() {
 
-    var appointmentListener: AppointmentListener? = null
+    var loaderListener: LoaderListener? = null
     var isFetchNeeded : Boolean = true
     var _appointmentResponse : MutableLiveData<AppointmentResponse> = MutableLiveData()
     var appointmentResponse : LiveData<AppointmentResponse> = _appointmentResponse
@@ -32,22 +33,22 @@ class AppointmentViewModel(
     fun getAppointment() {
         Coroutines.main {
             if(isFetchNeeded.equals(true)){
-                appointmentListener?.onStarted()
+                loaderListener?.onStarted()
                 try {
                     val appointmentResponse = repository.getAppointment("5e8387c7799ce5678810639b")
                     if(!appointmentResponse.data.isNullOrEmpty()){
                         _appointmentResponse.postValue(appointmentResponse)
-                        appointmentListener?.onSuccess()
+                        loaderListener?.onSuccess()
                         isFetchNeeded = false
                         return@main
                     }
-                    appointmentListener?.onFailure(appointmentResponse.message)
+                    loaderListener?.onFailure(appointmentResponse.message)
                 }catch(e: ApiException){
-                    appointmentListener?.onFailure(e.message.toString())
+                    loaderListener?.onFailure(e.message.toString())
                 }catch (e: NoInternetException){
-                    appointmentListener?.onFailure(e.message.toString())
+                    loaderListener?.onFailure(e.message.toString())
                 }catch (e : Exception){
-                    appointmentListener?.onFailure(e.message.toString())
+                    loaderListener?.onFailure(e.message.toString())
                 }
             }
         }
